@@ -41,13 +41,12 @@ public class UriIdentityHandlerFactory extends AbstractConfiguredFilterHandlerFa
             config = configurationObject;
             patterns.clear();
 
-
             for (IdentificationMapping identificationMapping : config.getIdentificationMappings().getMapping()) {
                 patterns.add(Pattern.compile(identificationMapping.getIdentificationRegex()));
             }
 
             quality = determineQuality();
-            group = StringUtilities.getNonBlankValue(group, DEFAULT_GROUP);
+            group = StringUtilities.getNonBlankValue(config.getGroup(), DEFAULT_GROUP);
 
             isInitialized = true;
         }
