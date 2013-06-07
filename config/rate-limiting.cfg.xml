@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<rate-limiting datastore="distributed/hash-ring" use-capture-groups="true" xmlns="http://docs.rackspacecloud.com/repose/rate-limiting/v1.0">
+  
+  <request-endpoint uri-regex="/service/limits/" />
+  
+  <limit-group id="limit-riotgames-group" groups="RiotGames" default="false">
+    <limit uri="/*" uri-regex="(/api/lol/).*/(v2/)(game|summoner|stats)/.*" http-methods="ALL" unit="SECOND" value="2000"/>
+  </limit-group>
+  
+</rate-limiting>

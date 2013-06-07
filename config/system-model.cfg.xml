@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<system-model xmlns="http://docs.rackspacecloud.com/repose/system-model/v2.0">
+  <repose-cluster id="repose" rewrite-host-header="true">
+    
+    <nodes>
+      <node id="node1" hostname="localhost" http-port="8080" />
+      <node id="node2" hostname="10.96.1.46" http-port="80" />
+    </nodes>
+    
+    <filters>
+      <!--filter name="http-logging" configuration="http-logging.cfg.xml" /-->
+      <filter name="uri-identity" configuration="group-riotgames.cfg.xml" />
+      <filter name="rate-limiting" configuration="rate-limiting.cfg.xml" />
+      <filter name="destination-router" uri-regex="/api/lol/na/v2/(game|summoner|stats)/.*"  configuration="destination-stats-v2-na.cfg.xml" />
+      <filter name="destination-router" uri-regex="/api/lol/euw/v2/(game|summoner|stats)/.*" configuration="destination-stats-v2-euw.cfg.xml" />
+    </filters>
+    
+    <services>
+      <service name="distributed-datastore" />
+    </services>
+    
+    <destinations>
+      <target id="destination-stats-v2-na"  cluster="cluster-stats-v2-na"  protocol="http" />
+      <target id="destination-stats-v2-euw" cluster="cluster-stats-v2-euw" protocol="http" />
+    </destinations>
+    
+  </repose-cluster>
+  
+  <service-cluster id="cluster-stats-v2-na">
+    <nodes>
+      <node id="stats-v2-na-ws03" hostname="ws03.stats2.api.pvp.net" http-port="8080" />
+      <node id="stats-v2-na-ws04" hostname="ws04.stats2.api.pvp.net" http-port="8080" />
+    </nodes>
+  </service-cluster>
+  
+  <service-cluster id="cluster-stats-v2-euw">
+    <nodes>
+      <node id="stats-v2-euw-ws10" hostname="ws10.stats2.api.pvp.net" http-port="8080" />
+      <node id="stats-v2-euw-ws11" hostname="ws11.stats2.api.pvp.net" http-port="8080" />
+    </nodes>
+  </service-cluster>
+  
+</system-model>

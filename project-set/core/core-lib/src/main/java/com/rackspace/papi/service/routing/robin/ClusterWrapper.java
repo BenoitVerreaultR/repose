@@ -27,7 +27,7 @@ public class ClusterWrapper {
    }
    
    public Node getNode(int index) {
-      return nodeCount > 0 && index >= 0? nodes.get(index % nodeCount): null;
+      return nodeCount > 0 ? nodes.get(Math.abs(index % nodeCount)): null;
    }
    
 }

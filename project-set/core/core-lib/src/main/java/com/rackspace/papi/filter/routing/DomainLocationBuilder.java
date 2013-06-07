@@ -33,9 +33,9 @@ public class DomainLocationBuilder implements LocationBuilder {
             throw new IllegalArgumentException("Destination must be of type DestinationCluster");
         }
         DestinationCluster domain = (DestinationCluster) destination;
-        Node node = routingService.getRoutableNode(domain.getId());
+        Node node = routingService.getRoutableNode(domain.getCluster().getId());
         if (node == null) {
-           LOG.warn("No routable node for domain: " + domain.getId());
+           LOG.warn("No routable node for domain: " + domain.getCluster().getId());
            return null;
         }
         int port = HTTPS_PROTOCOL.equalsIgnoreCase(domain.getProtocol()) ? node.getHttpsPort() : node.getHttpPort();

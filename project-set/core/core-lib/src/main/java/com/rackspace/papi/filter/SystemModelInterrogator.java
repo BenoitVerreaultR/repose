@@ -31,7 +31,7 @@ public class SystemModelInterrogator {
    private static final Logger LOG = LoggerFactory.getLogger(SystemModelInterrogator.class);
    private final NetworkInterfaceProvider networkInterfaceProvider;
    private final NetworkNameResolver nameResolver;
-   private final List<Port> ports;
+   private final ServicePorts ports;
 
     @Autowired
    public SystemModelInterrogator(@Qualifier("servicePorts") ServicePorts ports) {
