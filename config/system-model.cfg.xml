@@ -5,20 +5,21 @@
     
     <nodes>
       <node id="node1" hostname="localhost" http-port="8080" />
-      <node id="node2" hostname="10.96.1.46" http-port="80" />
+      <!--node id="node2" hostname="10.96.1.46" http-port="80" /-->
     </nodes>
     
     <filters>
       <!--filter name="http-logging" configuration="http-logging.cfg.xml" /-->
-      <filter name="uri-identity" configuration="group-riotgames.cfg.xml" />
+      <filter name="dist-datastore" configuration="dist-datastore.cfg.xml" />
+      <filter name="header-token-identity" configuration="header-token-identity.cfg.xml" />
       <filter name="rate-limiting" configuration="rate-limiting.cfg.xml" />
       <filter name="destination-router" uri-regex="/api/lol/na/v2/(game|summoner|stats)/.*"  configuration="destination-stats-v2-na.cfg.xml" />
       <filter name="destination-router" uri-regex="/api/lol/euw/v2/(game|summoner|stats)/.*" configuration="destination-stats-v2-euw.cfg.xml" />
     </filters>
     
-    <services>
+    <!--services>
       <service name="distributed-datastore" />
-    </services>
+    </services-->
     
     <destinations>
       <target id="destination-stats-v2-na"  cluster="cluster-stats-v2-na"  protocol="http" />

@@ -40,6 +40,7 @@
         <module>uri-normalization</module>
         <module>replicated-datastore</module>
         <module>compression</module>
+        <module>header-token-identity</module>
     </modules>
 
     <dependencyManagement>
@@ -267,6 +268,12 @@
             <dependency>
                 <groupId>com.rackspace.papi.components</groupId>
                 <artifactId>compression</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.rackspace.papi.components</groupId>
+                <artifactId>header-token-identity</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
