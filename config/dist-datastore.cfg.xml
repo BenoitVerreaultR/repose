@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+ 
 <distributed-datastore xmlns='http://openrepose.org/repose/distributed-datastore/v1.0'>
-   <allowed-hosts allow-all="false">
-      <allow host="127.0.0.1" />
-   </allowed-hosts>
+   <allowed-hosts allow-all="false" />
+   <port-config>
+      <port port="8888" cluster="repose" node="local" />
+      <port port="8888" cluster="repose" node="riot_api_repose_01" />
+      <port port="8888" cluster="repose" node="riot_api_repose_02" />
+   </port-config>
 </distributed-datastore>

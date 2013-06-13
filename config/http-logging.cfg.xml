@@ -7,7 +7,7 @@
              found at http://httpd.apache.org/docs/2.2/mod/mod_log_config.html#formats -->
         <http-log id="my-special-log" format="%m %s %Dµs %U %q">
             <targets>
-                <file location="/var/log/repose/requests.log"/>
+                <file location="logs/requests.log"/>
             </targets>
         </http-log>
 </http-logging>
