@@ -4,8 +4,11 @@
   
   <request-endpoint uri-regex="/service/limits/" />
   
-  <limit-group id="limit-riotgames-group" groups="RiotGames" default="false">
-    <limit uri="/*" uri-regex="(/api/lol/).*/(v2/)(game|summoner|stats)/.*" http-methods="ALL" unit="MINUTE" value="2"/>
+  <limit-group id="riotgames-statsv2-game" groups="RiotGames" default="false">
+    <limit uri="/api/lol/*/v2/game/*"     uri-regex="(/api/lol/).*/(v2/game/).*"     http-methods="ALL" unit="SECOND" value="1000"/>
+    <limit uri="/api/lol/*/v2/summoner/*" uri-regex="(/api/lol/).*/(v2/summoner/).*" http-methods="ALL" unit="SECOND" value="1000"/>
+    <limit uri="/api/lol/*/v2/stats/*"    uri-regex="(/api/lol/).*/(v2/stats/).*"    http-methods="ALL" unit="SECOND" value="1000"/>
+    <limit uri="/api/*"                   uri-regex="(/api/).*"                      http-methods="ALL" unit="SECOND" value="0"/>
   </limit-group>
   
   <limit-group id="limit-default" groups="User_Standard" default="true">
