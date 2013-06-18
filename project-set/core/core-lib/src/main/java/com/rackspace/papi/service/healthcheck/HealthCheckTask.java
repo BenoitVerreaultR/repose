@@ -78,7 +78,7 @@ public class HealthCheckTask implements RecurringTask {
                         eventService.newEvent(HealthCheckEvent.HEALTHY, node);
                     }
                 } catch (Exception e) {
-                    LOG.error("HealthCheckTask : Failed to request health check for node " + node.getNode().getId(), e);
+                    LOG.error("HealthCheckTask : Failed to request health check for node " + node.getNode().getId());
                     node.setSuccessCount(0);
                     node.setActive(false);
                     eventService.newEvent(HealthCheckEvent.UNHEALTHY, node);
