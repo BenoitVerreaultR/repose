@@ -10,6 +10,7 @@ import com.rackspace.papi.model.Node;
 import com.rackspace.papi.model.NodeList;
 import com.rackspace.papi.model.ReposeCluster;
 import com.rackspace.papi.model.SystemModel;
+import com.rackspace.papi.service.event.common.EventService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -29,8 +30,9 @@ public class RoundRobinRoutingServiceTest {
 
       @Before
       public void setUp() {
-         
-         robinRoutingService = new RoundRobinRoutingService();
+
+         EventService eventService = mock(EventService.class);
+         robinRoutingService = new RoundRobinRoutingService(eventService);
 
          systemModel = new SystemModel();
 

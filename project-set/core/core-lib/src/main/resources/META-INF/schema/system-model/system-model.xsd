@@ -107,6 +107,10 @@
             </xs:documentation>
         </xs:annotation>
 
+        <xs:sequence>
+            <xs:element name="healthcheck" type="mod:HealthCheck" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+
         <xs:attribute name="id" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
@@ -153,6 +157,52 @@
             saxon:message="You must specify an http-port and/or an https-port">
         </xs:assert>
     </xs:complexType>
+
+    <xs:complexType name="HealthCheck">
+        <xs:annotation>
+            <xs:documentation>
+                <html:p>Defines a single health check url to hit on the node</html:p>
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:attribute name="protocol" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+                    <html:p>
+                        Defines the endpoint's protocol. Current protocols permitted are http and https.
+                        If the protocol is not specified then http is assumed.
+                    </html:p>
+                </xs:documentation>
+            </xs:annotation>
+
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="http"/>
+                    <xs:enumeration value="https"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+
+        <xs:attribute name="port" type="xs:int" use="optional" default="80">
+            <xs:annotation>
+                <xs:documentation>
+                    <html:p>
+                        Port number of the health check to hit the host.
+                    </html:p>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+
+        <xs:attribute name="uri" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    <html:p>Defines the uri to hit on the host to check if the service is healthy.</html:p>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+
+    </xs:complexType>
+
 
     <xs:complexType name="FilterList">
         <xs:annotation>
