@@ -41,6 +41,7 @@
         <module>replicated-datastore</module>
         <module>compression</module>
         <module>header-token-identity</module>
+        <module>uri-access</module>
     </modules>
 
     <dependencyManagement>
@@ -274,6 +275,12 @@
             <dependency>
                 <groupId>com.rackspace.papi.components</groupId>
                 <artifactId>header-token-identity</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.rackspace.papi.components</groupId>
+                <artifactId>uri-access</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

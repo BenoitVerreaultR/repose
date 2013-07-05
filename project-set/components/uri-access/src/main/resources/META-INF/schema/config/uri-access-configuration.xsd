@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified"
+           targetNamespace="http://docs.api.rackspacecloud.com/repose/uri-access/v1.0"
+           xmlns:uri-access="http://docs.api.rackspacecloud.com/repose/uri-access/v1.0"
+           xmlns:html="http://www.w3.org/1999/xhtml"
+           xmlns:atom="http://www.w3.org/2005/Atom"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!-- Enumeration and SimpleType definitions -->
+    <xs:simpleType name="HttpMethod">
+        <xs:annotation>
+            <xs:documentation>
+                <html:p>
+                    The HttpMethod simple type defines a string
+                    enumeration of HTTP method verbs as outlined in <a
+                        href="http://www.ietf.org/rfc/rfc2616.txt">RFC2616</a>
+                    section 9.
+                </html:p>
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="GET" />
+            <xs:enumeration value="DELETE" />
+            <xs:enumeration value="POST" />
+            <xs:enumeration value="PUT" />
+            <xs:enumeration value="HEAD" />
+            <xs:enumeration value="OPTIONS" />
+            <xs:enumeration value="CONNECT" />
+            <xs:enumeration value="TRACE" />
+
+            <xs:enumeration value="ALL" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="HttpMethodList">
+        <xs:list itemType="uri-access:HttpMethod"/>
+    </xs:simpleType>
+
+    <!-- Client User Identity Configuration -->
+    <xs:element name="uri-access" type="uri-access:UriAccessConfig" />
+
+    <xs:complexType name="UriAccessConfig">
+        <xs:annotation>
+            <xs:documentation>
+                <html:p></html:p>
+            </xs:documentation>
+        </xs:annotation>
+        
+        <xs:sequence>
+            <xs:element name="access-group" type="uri-access:AccessGroup" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+
+    </xs:complexType>
+
+    <xs:complexType name="AccessGroup">
+        <xs:annotation>
+            <xs:documentation>
+                <html:p></html:p>
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:sequence>
+            <xs:element name="access" type="uri-access:Access" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+
+        <xs:attribute name="id" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+                    <html:p></html:p>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+
+        <xs:attribute name="group" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    <html:p>The group that will be used to grant access</html:p>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+
+        <xs:attribute name="default" type="xs:boolean" use="optional" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    <html:p>The group that will be used to grant access</html:p>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+
+    </xs:complexType>
+
+
+    <xs:complexType name="Access">
+        <xs:annotation>
+            <xs:documentation>
+                <html:p>Defines a single uri access</html:p>
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:attribute name="uri" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    <html:p>Human readable version of the matcher used to enforce this access</html:p>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+
+        <xs:attribute name="uri-regex" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    <html:p>The regex used to match a passing request to current access group.
+                    </html:p>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+
+        <xs:attribute name="http-methods" type="uri-access:HttpMethodList" use="optional" default="ALL">
+            <xs:annotation>
+                <xs:documentation>
+                    <html:p>List of HTTP Methods this rate limit will match on.
+                        Valid values include:
+                        GET, DELETE, POST, PUT, HEAD, OPTIONS, CONNECT, TRACE, ALL
+                    </html:p>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+
+    </xs:complexType>
+</xs:schema>

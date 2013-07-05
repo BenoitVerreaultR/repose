@@ -137,6 +137,11 @@
             <artifactId>header-token-identity</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.rackspace.papi.components</groupId>
+            <artifactId>uri-access</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -253,6 +258,12 @@
                             <groupId>com.rackspace.papi.components</groupId>
                             <artifactId>header-token-identity</artifactId>
                         </jarModule>
+
+                        <jarModule>
+                            <groupId>com.rackspace.papi.components</groupId>
+                            <artifactId>uri-access</artifactId>
+                        </jarModule>
+
                     </modules>
                 </configuration>
             </plugin>
