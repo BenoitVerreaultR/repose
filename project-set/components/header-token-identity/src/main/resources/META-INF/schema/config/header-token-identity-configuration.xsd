@@ -19,7 +19,6 @@
         
         <xs:all>
             <xs:element name="token-header" type="xs:string" minOccurs="1" maxOccurs="1" />
-            <xs:element name="quality" type="xs:string" minOccurs="0" maxOccurs="1" default="0.5" />
             <xs:element name="headers" type="header-token-identity:HeadersMapping" minOccurs="1" maxOccurs="1" />
         </xs:all>
     </xs:complexType>

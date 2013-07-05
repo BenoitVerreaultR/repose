@@ -15,10 +15,8 @@ public class HeaderTokenIdentityHandlerFactory extends AbstractConfiguredFilterH
 
     private static final Logger LOG = LoggerFactory.getLogger(HeaderTokenIdentityHandlerFactory.class);
 
-    public static final String DEFAULT_QUALITY = "0.5";
     private Map<String, String> tokenToGroup = new HashMap<String, String>();
     private HeaderTokenIdentityConfig config;
-    private String quality;
     private String tokenHeader;
 
     public HeaderTokenIdentityHandlerFactory() {
@@ -50,7 +48,6 @@ public class HeaderTokenIdentityHandlerFactory extends AbstractConfiguredFilterH
                 tokenToGroup.put(headerMapping.getToken(), headerMapping.getGroup());
             }
 
-            quality = determineQuality();
             tokenHeader = config.getTokenHeader();
 
             isInitialized = true;
@@ -67,16 +64,7 @@ public class HeaderTokenIdentityHandlerFactory extends AbstractConfiguredFilterH
         if (!this.isInitialized()) {
             return null;
         }
-        return new HeaderTokenIdentityHandler(tokenToGroup, tokenHeader, quality);
+        return new HeaderTokenIdentityHandler(tokenToGroup, tokenHeader);
     }
 
-    private String determineQuality() {
-        String q = DEFAULT_QUALITY;
-
-        if (config != null) {
-            q = StringUtilities.getNonBlankValue(config.getQuality(), DEFAULT_QUALITY);
-        }
-
-        return ";q=" + q;
-    }
 }
