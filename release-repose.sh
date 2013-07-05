@@ -1,6 +1,6 @@
 #!/bin/bash
 
-HOSTS=( "10.96.1.11" "10.96.1.46" )
+HOSTS=("10.96.1.26" "10.96.1.46")
 EAR=./project-set/components/filter-bundle/target/filter-bundle*.ear
 JAR=./project-set/core/valve/target/repose-valve.jar
 DEPLOY_FOLDER=/srv/repose
@@ -11,12 +11,12 @@ FULL_SSH=`ls $SSH`
 for HOST in "${HOSTS[@]}"
 do
 	
-    rsync -ave "ssh -i $FULL_SSH" ./bin/*.sh ec2-user@$HOST:$DEPLOY_FOLDER/
-    rsync -ave "ssh -i $FULL_SSH" ./config/*.xml ec2-user@$HOST:$DEPLOY_FOLDER/config/
-    rsync -ave "ssh -i $FULL_SSH" ./config/*.properties ec2-user@$HOST:$DEPLOY_FOLDER/config/
-    rsync -ave "ssh -i $FULL_SSH" ./newrelic/* ec2-user@$HOST:$DEPLOY_FOLDER/newrelic/
-    rsync -ave "ssh -i $FULL_SSH" $EAR ec2-user@$HOST:$DEPLOY_FOLDER/
-    rsync -ave "ssh -i $FULL_SSH" $JAR ec2-user@$HOST:$DEPLOY_FOLDER/
+    rsync -avz -e "ssh -i $FULL_SSH" ./bin/*.sh ec2-user@$HOST:$DEPLOY_FOLDER/
+    rsync -avz -e "ssh -i $FULL_SSH" --exclude 'rate-limiting.cfg.xml' --exclude 'uri-access.cfg.xml' --exclude 'header-token-identity.cfg.xml' ./config/*.cfg.xml ec2-user@$HOST:$DEPLOY_FOLDER/config/
+    rsync -avz -e "ssh -i $FULL_SSH" ./config/*.properties ec2-user@$HOST:$DEPLOY_FOLDER/config/
+    rsync -avz -e "ssh -i $FULL_SSH" ./newrelic/* ec2-user@$HOST:$DEPLOY_FOLDER/newrelic/
+    rsync -avz -e "ssh -i $FULL_SSH" $EAR ec2-user@$HOST:$DEPLOY_FOLDER/
+    rsync -avz -e "ssh -i $FULL_SSH" $JAR ec2-user@$HOST:$DEPLOY_FOLDER/
     
     ESCAPED_DEPLOY_FOLDER=`echo $DEPLOY_FOLDER | sed 's/\//\\\\\//g'`
     
@@ -38,7 +38,7 @@ do
     rm -f $DEPLOY_FOLDER/config/_system-model.cfg.xml;
     
     mv $DEPLOY_FOLDER/config/container.cfg.xml $DEPLOY_FOLDER/config/_container.cfg.xml;
-    sed 's/deploys/$ESCAPED_DEPLOY_FOLDER/g' $DEPLOY_FOLDER/config/_container.cfg.xml > $DEPLOY_FOLDER/config/container.cfg.xml;
+    sed 's/deploys/$ESCAPED_DEPLOY_FOLDER\/deploys/g' $DEPLOY_FOLDER/config/_container.cfg.xml > $DEPLOY_FOLDER/config/container.cfg.xml;
     rm -f $DEPLOY_FOLDER/config/_container.cfg.xml;
     
     mv $DEPLOY_FOLDER/config/container.cfg.xml $DEPLOY_FOLDER/config/_container.cfg.xml;

@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<rate-limiting datastore="distributed/hash-ring" use-capture-groups="true" xmlns="http://docs.rackspacecloud.com/repose/rate-limiting/v1.0">
+<rate-limiting datastore="distributed/hash-ring" use-capture-groups="true" overLimit-429-responseCode="true" xmlns="http://docs.rackspacecloud.com/repose/rate-limiting/v1.0">
   
-  <request-endpoint uri-regex="/service/limits/" />
+  <request-endpoint uri-regex="/api/limits/" />
   
-  <limit-group id="riotgames-statsv2-game" groups="RiotGames" default="false">
+  <limit-group id="RiotGames" groups="RiotGames" default="false">
     <limit uri="/api/lol/*/v2/game/*"     uri-regex="(/api/lol/).*/(v2/game/).*"     http-methods="ALL" unit="SECOND" value="1000"/>
     <limit uri="/api/lol/*/v2/summoner/*" uri-regex="(/api/lol/).*/(v2/summoner/).*" http-methods="ALL" unit="SECOND" value="1000"/>
     <limit uri="/api/lol/*/v2/stats/*"    uri-regex="(/api/lol/).*/(v2/stats/).*"    http-methods="ALL" unit="SECOND" value="1000"/>
-    <limit uri="/api/*"                   uri-regex="(/api/).*"                      http-methods="ALL" unit="SECOND" value="0"/>
   </limit-group>
   
-  <limit-group id="limit-default" groups="User_Standard" default="true">
-    <limit uri="/*" uri-regex="/api/*" http-methods="ALL" unit="SECOND" value="0"/>
+  <limit-group id="User_Standard" groups="User_Standard" default="true">
+    <limit uri="/api/*" uri-regex="(/api/).*" http-methods="ALL" unit="SECOND" value="0"/>
   </limit-group>
   
 </rate-limiting>
