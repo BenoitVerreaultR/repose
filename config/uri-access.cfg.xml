@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<uri-access xmlns="http://docs.rackspacecloud.com/repose/uri-access/v1.0">
-  
-  <access-group id="RiotGames" groups="RiotGames" default="false">
+<uri-access xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+   xmlns='http://docs.api.rackspacecloud.com/repose/uri-access/v1.0'
+   xsi:schemaLocation='http://docs.api.rackspacecloud.com/repose/uri-access/v1.0 ../config/uri-access-configuration.xsd'>
+
+  <access-group id="RiotGames" group="RiotGames" default="false">
     <access uri="/api/lol/{region}/v2/game/*"     uri-regex="/api/lol/(na|euw|eune)/v2/game/.*"     http-methods="ALL" />
     <access uri="/api/lol/{region}/v2/summoner/*" uri-regex="/api/lol/(na|euw|eune)/v2/summoner/.*" http-methods="ALL" />
     <access uri="/api/lol/{region}/v2/stats/*"    uri-regex="/api/lol/(na|euw|eune)/v2/stats/.*"    http-methods="ALL" />
