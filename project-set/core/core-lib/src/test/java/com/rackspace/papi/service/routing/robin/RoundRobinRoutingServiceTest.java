@@ -68,8 +68,7 @@ public class RoundRobinRoutingServiceTest {
       
       @Test
       public void shouldSwitchBetweenTwoRoutableNodes(){
-         
-         
+
          final Node node1 = robinRoutingService.getRoutableNode("reposeNode1");
          final Node node2 = robinRoutingService.getRoutableNode("reposeNode1");
          final Node node3 = robinRoutingService.getRoutableNode("reposeNode1");

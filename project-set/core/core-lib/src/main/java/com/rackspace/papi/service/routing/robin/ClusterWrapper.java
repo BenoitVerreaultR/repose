@@ -31,7 +31,7 @@ public class ClusterWrapper implements EventListener<HealthCheckEvent, NodeStatu
         }
     }
 
-    public Node getNode(int index) {
+    private Node getNode(int index) {
         return healthyNodes.size() > 0 ? healthyNodes.get(Math.abs(index % healthyNodes.size())): null;
     }
 
@@ -62,9 +62,10 @@ public class ClusterWrapper implements EventListener<HealthCheckEvent, NodeStatu
 
                 // remove from healthy nodes
                 for (int i = 0; i < healthyNodes.size(); i++) {
-                    if (healthyNodes.get(i).getId().equals(e.payload().getNode().getId())) {
+                    Node node = healthyNodes.get(i);
+                    if (node.getId().equals(e.payload().getNode().getId())) {
                         synchronized (healthyNodes) {
-                            healthyNodes.remove(i);
+                            healthyNodes.remove(node);
                         }
                         return;
                     }

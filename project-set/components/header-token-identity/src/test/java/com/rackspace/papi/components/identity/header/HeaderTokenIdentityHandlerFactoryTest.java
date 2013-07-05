@@ -10,10 +10,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Field;
+import java.util.Map;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -23,13 +26,11 @@ import static org.mockito.Mockito.when;
  */
 public class HeaderTokenIdentityHandlerFactoryTest {
 
-    private static String QUALITY = "0.5";
-    private static String QUALITY_VALUE = ";q=0.5";
     private static String URI1 = "/some/uri";
-    private static String GROUP1 = "1234";
-    private static String TOKEN1 = "1234";
-    private static String GROUP2 = "4321";
-    private static String TOKEN2 = "4321";
+    private static String GROUP1 = "Group1";
+    private static String TOKEN1 = "1111";
+    private static String GROUP2 = "Group2";
+    private static String TOKEN2 = "2222";
     private HeaderTokenIdentityHandlerFactory factory;
     private HeaderTokenIdentityConfig config;
     private HttpServletRequest request;
@@ -41,7 +42,6 @@ public class HeaderTokenIdentityHandlerFactoryTest {
         
         factory = new HeaderTokenIdentityHandlerFactory();
         config = new HeaderTokenIdentityConfig();
-        config.setQuality(QUALITY);
 
         HeadersMapping headersMapping = new HeadersMapping();
 
@@ -66,67 +66,19 @@ public class HeaderTokenIdentityHandlerFactoryTest {
         response = mock(ReadableHttpServletResponse.class);
 
     }
-    
+
     @Test
-    public void shouldSetDefaultQuality(){
-        
-        config = new HeaderTokenIdentityConfig();
-        HeadersMapping headersMapping = new HeadersMapping();
+    public void shouldHaveTokenToGroupSet() throws NoSuchFieldException, IllegalAccessException {
 
-        HeaderMapping headerMapping = new HeaderMapping();
-        headerMapping.setId("Mapping 1");
-        headerMapping.setGroup(GROUP1);
-        headerMapping.setToken(TOKEN1);
-        headersMapping.getHeader().add(headerMapping);
-        
-        config.setHeaders(headersMapping);
-        
-        factory.configurationUpdated(config);
+        Field field = HeaderTokenIdentityHandlerFactory.class.getDeclaredField("tokenToGroup");
+        field.setAccessible(true);
+        Map<String, String> tokenToGroup = (Map<String, String>) field.get(factory);
 
-        handler = factory.buildHandler();
-        
-        when(request.getRequestURI()).thenReturn(URI1);
+        assertTrue(tokenToGroup.containsKey(TOKEN1));
+        assertTrue(tokenToGroup.containsKey(TOKEN2));
+        assertTrue(tokenToGroup.containsValue(GROUP1));
+        assertTrue(tokenToGroup.containsValue(GROUP2));
 
-        FilterDirector result = handler.handleRequest(request, response);
-
-        Set<String> values = result.requestHeaderManager().headersToAdd().get(PowerApiHeader.USER.toString().toLowerCase());
-        assertFalse("Should have " + PowerApiHeader.USER.toString() + " header set.", values == null || values.isEmpty());
-
-        String userName = values.iterator().next();
-
-        assertEquals("Should find user name in header", GROUP1 + QUALITY_VALUE, userName);
-        
     }
-    
-    @Test
-    public void shouldSetDefaultQualityIfConfigIsBlank(){
-        
-        config = new HeaderTokenIdentityConfig();
-        config.setQuality("");
-        HeadersMapping headersMapping = new HeadersMapping();
 
-        HeaderMapping headerMapping = new HeaderMapping();
-        headerMapping.setId("Mapping 1");
-        headerMapping.setGroup(GROUP1);
-        headerMapping.setToken(TOKEN1);
-        headersMapping.getHeader().add(headerMapping);
-        
-        config.setHeaders(headersMapping);
-        
-        factory.configurationUpdated(config);
-
-        handler = factory.buildHandler();
-        
-        when(request.getRequestURI()).thenReturn(URI1);
-
-        FilterDirector result = handler.handleRequest(request, response);
-
-        Set<String> values = result.requestHeaderManager().headersToAdd().get(PowerApiHeader.USER.toString().toLowerCase());
-        assertFalse("Should have " + PowerApiHeader.USER.toString() + " header set.", values == null || values.isEmpty());
-
-        String userName = values.iterator().next();
-
-        assertEquals("Should find user name in header", GROUP1 + QUALITY_VALUE, userName);
-        
-    }
 }

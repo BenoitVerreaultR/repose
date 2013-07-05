@@ -2,8 +2,10 @@ package com.rackspace.papi.components.identity.header;
 
 
 
+import com.rackspace.papi.commons.util.http.HttpStatusCode;
 import com.rackspace.papi.commons.util.http.PowerApiHeader;
 import com.rackspace.papi.commons.util.servlet.http.ReadableHttpServletResponse;
+import com.rackspace.papi.filter.logic.FilterAction;
 import com.rackspace.papi.filter.logic.FilterDirector;
 
 import java.util.*;
@@ -24,13 +26,13 @@ public class HeaderTokenIdentityHandlerTest {
 
         private Map<String, String> tokenToGroup;
 
-        private static String TOKEN_HEADER = "X-USER";
-        private static String QUALITY_VALUE = ";q=0.5";
+        private static String TOKEN_HEADER = "X-TOKEN";
         private static String URI1 = "/some/uri/";
-        private static String GROUP1 = "1234";
-        private static String TOKEN1 = "1234";
-        private static String GROUP2 = "4321";
-        private static String TOKEN2 = "4321";
+        private static String GROUP1 = "Group1";
+        private static String TOKEN1 = "1111";
+        private static String GROUP2 = "Group2";
+        private static String TOKEN2 = "2222";
+        private static String INVALID_TOKEN = "3333";
         private HttpServletRequest request;
         private ReadableHttpServletResponse response;
         private HeaderTokenIdentityHandler handler;
@@ -42,49 +44,52 @@ public class HeaderTokenIdentityHandlerTest {
             tokenToGroup.put(TOKEN1, GROUP1);
             tokenToGroup.put(TOKEN2, GROUP2);
             
-            handler = new HeaderTokenIdentityHandler(tokenToGroup, TOKEN_HEADER, QUALITY_VALUE);
+            handler = new HeaderTokenIdentityHandler(tokenToGroup, TOKEN_HEADER);
             request = mock(HttpServletRequest.class);
             response = mock(ReadableHttpServletResponse.class);
 
         }
 
         @Test
-        public void shouldSetTheUserHeaderToTheRegexResult() {
+        public void shouldSetTheUserHeaderToTheFirstGroup() {
             when(request.getRequestURI()).thenReturn(URI1);
+            when(request.getHeader(TOKEN_HEADER)).thenReturn(TOKEN1);
 
             FilterDirector result = handler.handleRequest(request, response);
 
             Set<String> values = result.requestHeaderManager().headersToAdd().get(PowerApiHeader.USER.toString().toLowerCase());
             assertFalse("Should have " + PowerApiHeader.USER.toString() + " header set.", values == null || values.isEmpty());
 
-            String userName = values.iterator().next();
+            String header = values.iterator().next();
 
-            assertEquals("Should find user name in header", GROUP1 + QUALITY_VALUE, userName);
+            assertEquals(PowerApiHeader.USER.toString() + " must be what is expected ", GROUP1, header);
+
         }
 
         @Test
-        public void shouldSetTheUserHeaderToThe2ndRegexResult() {
+        public void shouldReturnUnauthorizedOnNoTokens() {
+
             when(request.getRequestURI()).thenReturn(URI1);
 
             FilterDirector result = handler.handleRequest(request, response);
 
-            Set<String> values = result.requestHeaderManager().headersToAdd().get(PowerApiHeader.USER.toString().toLowerCase());
-            assertFalse("Should have " + PowerApiHeader.USER.toString() + " header set.", values == null || values.isEmpty());
+            assertTrue("Expect a return filter action", result.getFilterAction().equals(FilterAction.RETURN));
+            assertTrue("Expect an 401-unauthorized return code", result.getResponseStatus().equals(HttpStatusCode.UNAUTHORIZED));
 
-            String userName = values.iterator().next();
-
-            assertEquals("Should find user name in header", GROUP1 + QUALITY_VALUE, userName);
         }
 
         @Test
-        public void shouldNotHaveUserHeader() {
+        public void shouldReturnUnauthorizedOnInvalidToken() {
+
             when(request.getRequestURI()).thenReturn(URI1);
+            when(request.getHeader(TOKEN_HEADER)).thenReturn(INVALID_TOKEN);
 
             FilterDirector result = handler.handleRequest(request, response);
 
-            Set<String> values = result.requestHeaderManager().headersToAdd().get(PowerApiHeader.USER.toString().toLowerCase());
-            assertTrue("Should not have " + PowerApiHeader.USER.toString() + " header set.", values == null || values.isEmpty());
+            assertTrue("Expect a return filter action", result.getFilterAction().equals(FilterAction.RETURN));
+            assertTrue("Expect an 401-unauthorized return code", result.getResponseStatus().equals(HttpStatusCode.UNAUTHORIZED));
 
         }
+
     }
 }
