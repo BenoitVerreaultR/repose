@@ -32,7 +32,23 @@
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        
+
+        <xs:attribute name="uri" type="xs:string" use="optional" default="">
+            <xs:annotation>
+                <xs:documentation>
+                    <html:p>Defines a uri that will replace that first capture group of the uri regex property.</html:p>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+
+        <xs:attribute name="uri-regex" type="xs:string" use="optional" default="">
+            <xs:annotation>
+                <xs:documentation>
+                    <html:p>Defines a uri will be captured and replaced by the uri property.</html:p>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+
         <xs:attribute name="quality" type="scr:doubleBetweenZeroandOne">
             <xs:annotation>
                 <xs:documentation>

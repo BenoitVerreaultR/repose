@@ -1,6 +1,7 @@
 package org.openrepose.components.routing.servlet;
 
 import com.rackspace.papi.commons.config.manager.UpdateListener;
+import com.rackspace.papi.commons.util.StringUtilities;
 import com.rackspace.papi.filter.logic.AbstractConfiguredFilterHandlerFactory;
 import org.openrepose.components.routing.servlet.config.DestinationRouterConfiguration;
 import org.openrepose.components.routing.servlet.config.Target;
@@ -8,6 +9,8 @@ import org.slf4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DestinationRouterHandlerFactory extends AbstractConfiguredFilterHandlerFactory<RoutingTagger> {
 
@@ -15,6 +18,7 @@ public class DestinationRouterHandlerFactory extends AbstractConfiguredFilterHan
     private static final Logger LOG = org.slf4j.LoggerFactory.getLogger(RoutingTagger.class);
     private double quality;
     private Target target;
+    private Pattern regex = null;
     private static final String DEFAULT_QUALITY = "0.5";
 
     public DestinationRouterHandlerFactory() {
@@ -33,6 +37,10 @@ public class DestinationRouterHandlerFactory extends AbstractConfiguredFilterHan
                 LOG.warn("Configuration file for Destination router seems to be missing or malformed.");
             } else {
                 target = contextRouterConfiguration.getTarget();
+
+                if (StringUtilities.isNotBlank(target.getUriRegex())) {
+                    regex = Pattern.compile(target.getUriRegex());
+                }
 
                 determineQuality();
             }
@@ -61,7 +69,7 @@ public class DestinationRouterHandlerFactory extends AbstractConfiguredFilterHan
         if (!this.isInitialized()) {
             return null;
         }
-        return new RoutingTagger(target.getId(), quality);
+        return new RoutingTagger(target.getId(), target.getUri(), regex, quality);
     }
 
     @Override

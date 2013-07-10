@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<destination-router xmlns='http://openrepose.org/repose/destination-router/v1.0'>
+   <target id="stats-v2-eune" uri="/api/lol/eune/v2/game" uri-regex="(/api/lol/eune/v2/game)(.*)" quality="1.0" />
+</destination-router>

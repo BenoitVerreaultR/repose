@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.openrepose.components.routing.servlet.config.DestinationRouterConfiguration;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  *
@@ -36,6 +38,11 @@ public class RoutingTaggerTest {
         private HttpServletResponse httpServletResponse;
         private RoutingTagger routingTagger;
         private final String DST = "dst1";
+        private final String REGEX1 = "(/some/uri)";
+        private final String REGEX2 = "(/some/uri)(.*)";
+        private final String REQUEST_URI = "/some/uri/with/extra";
+        private final String CONFIG_URI = "/another/uri";
+        private final String FINAL_URI = "/another/uri/with/extra";
         private DestinationRouterHandlerFactory factory;
         private DestinationRouterConfiguration destinationRouterConfig;
 
@@ -77,12 +84,51 @@ public class RoutingTaggerTest {
 
         @Test
         public void shouldAddRoute() {
-            target.setId("dst1");
+            target.setId(DST);
             routingTagger = factory.buildHandler();
-            FilterDirector director = new FilterDirectorImpl();
 
-            director = routingTagger.handleRequest(httpServletRequest, null);
+            FilterDirector director = routingTagger.handleRequest(httpServletRequest, null);
             assertEquals("Director should have the targeted destination", director.getDestinations().get(0).getDestinationId(), DST);
+        }
+
+        @Test
+        public void shouldNotAddRoute() {
+            routingTagger = factory.buildHandler();
+
+            FilterDirector filter = routingTagger.handleRequest(httpServletRequest, null);
+            assertEquals("No destinations should have been added.", 0, filter.getDestinations().size());
+        }
+
+        @Test
+        public void shouldRedirectToUri() {
+            target.setId(DST);
+            target.setUriRegex(REGEX1);
+            factory.configurationUpdated(destinationRouterConfig);
+            routingTagger = factory.buildHandler();
+
+            when(httpServletRequest.getRequestURI()).thenReturn(REQUEST_URI);
+
+            FilterDirector filter = routingTagger.handleRequest(httpServletRequest, null);
+
+            assertNotNull(filter.getDestinations().get(0));
+            assertEquals(REQUEST_URI, filter.getDestinations().get(0).getUri());
+        }
+
+        @Test
+        public void shouldReplaceUri() {
+
+            target.setId(DST);
+            target.setUriRegex(REGEX2);
+            target.setUri(CONFIG_URI);
+            factory.configurationUpdated(destinationRouterConfig);
+            routingTagger = factory.buildHandler();
+
+            when(httpServletRequest.getRequestURI()).thenReturn(REQUEST_URI);
+
+            FilterDirector filterDirector = routingTagger.handleRequest(httpServletRequest, null);
+
+            assertNotNull(filterDirector.getDestinations().get(0));
+            assertEquals(FINAL_URI, filterDirector.getDestinations().get(0).getUri());
         }
     }
 }
