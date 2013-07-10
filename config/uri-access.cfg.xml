@@ -6,14 +6,14 @@
 
   <access-group id="RiotGames" group="RiotGames" default="false">
     <access uri="/api/lol/na/v2/game" uri-regex="/api/lol/na/v2/game.*" http-methods="ALL" />
-    <access uri="/api/lol/na/v2/game" uri-regex="/api/lol/na/v2/summoner.*" http-methods="ALL" />
-    <access uri="/api/lol/na/v2/game" uri-regex="/api/lol/na/v2/stats.*" http-methods="ALL" />
+    <access uri="/api/lol/na/v2/summoner" uri-regex="/api/lol/na/v2/summoner.*" http-methods="ALL" />
+    <access uri="/api/lol/na/v2/stats" uri-regex="/api/lol/na/v2/stats.*" http-methods="ALL" />
     <access uri="/api/lol/euw/v2/game" uri-regex="/api/lol/euw/v2/game.*" http-methods="ALL" />
-    <access uri="/api/lol/euw/v2/game" uri-regex="/api/lol/euw/v2/summoner.*" http-methods="ALL" />
-    <access uri="/api/lol/euw/v2/game" uri-regex="/api/lol/euw/v2/stats.*" http-methods="ALL" />
+    <access uri="/api/lol/euw/v2/summoner" uri-regex="/api/lol/euw/v2/summoner.*" http-methods="ALL" />
+    <access uri="/api/lol/euw/v2/stats" uri-regex="/api/lol/euw/v2/stats.*" http-methods="ALL" />
     <access uri="/api/lol/eune/v2/game" uri-regex="/api/lol/eune/v2/game.*" http-methods="ALL" />
-    <access uri="/api/lol/eune/v2/game" uri-regex="/api/lol/eune/v2/summoner.*" http-methods="ALL" />
-    <access uri="/api/lol/eune/v2/game" uri-regex="/api/lol/eune/v2/stats.*" http-methods="ALL" />
+    <access uri="/api/lol/eune/v2/summoner" uri-regex="/api/lol/eune/v2/summoner.*" http-methods="ALL" />
+    <access uri="/api/lol/eune/v2/stats" uri-regex="/api/lol/eune/v2/stats.*" http-methods="ALL" />
   </access-group>
   
 </uri-access>

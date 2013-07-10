@@ -5,11 +5,11 @@
   <request-endpoint uri-regex="/api/limits/" />
   
   <limit-group id="RiotGames" groups="RiotGames" default="false">
-    <limit uri="/api/*" uri-regex="(/api/).*" http-methods="ALL" unit="SECOND" value="1000"/>
+    <limit uri="*" uri-regex=".*" http-methods="ALL" unit="SECOND" value="1000"/>
   </limit-group>
   
   <limit-group id="User_Standard" groups="User_Standard" default="true">
-    <limit uri="/api/*" uri-regex="(/api/).*" http-methods="ALL" unit="SECOND" value="0"/>
+    <limit uri="*" uri-regex=".*" http-methods="ALL" unit="SECOND" value="0"/>
   </limit-group>
   
 </rate-limiting>
