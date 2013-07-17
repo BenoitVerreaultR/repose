@@ -91,7 +91,6 @@
 
     </xs:complexType>
 
-
     <xs:complexType name="Access">
         <xs:annotation>
             <xs:documentation>
@@ -99,10 +98,18 @@
             </xs:documentation>
         </xs:annotation>
 
+        <xs:attribute name="id" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+                    <html:p>Defines the uri's id.</html:p>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+
         <xs:attribute name="uri" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    <html:p>Human readable version of the matcher used to enforce this access</html:p>
+                    <html:p>Human readable version of the matcher used to enforce this access.</html:p>
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -110,8 +117,7 @@
         <xs:attribute name="uri-regex" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    <html:p>The regex used to match a passing request to current access group.
-                    </html:p>
+                    <html:p>The regex used to match a passing request to current access group.</html:p>
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>

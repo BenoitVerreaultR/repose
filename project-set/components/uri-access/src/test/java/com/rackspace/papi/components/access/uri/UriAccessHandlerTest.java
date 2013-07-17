@@ -63,6 +63,7 @@ public class UriAccessHandlerTest {
             config.getAccessGroup().add(accessGroup);
             accessGroup.setGroup(GROUP2);
             accessGroup.setDefault(true);
+            accessGroup.getAccess().add(new AccessWrapper(access));
 
             when(helper.getGroup(GROUP2)).thenReturn(accessGroup);
 
@@ -100,7 +101,7 @@ public class UriAccessHandlerTest {
         @Test
         public void defaultGroupWithInaccessibleUrl() {
 
-            when(request.getRequestURI()).thenReturn(URI1);
+            when(request.getRequestURI()).thenReturn(URI2);
             when(request.getHeader(PowerApiHeader.GROUPS.toString())).thenReturn(GROUP2);
             when(request.getMethod()).thenReturn(HttpMethod.GET.toString());
 
@@ -111,6 +112,18 @@ public class UriAccessHandlerTest {
 
         }
 
-    }
+        @Test
+        public void defaultGroupWithAccessibleUrl() {
 
+            when(request.getRequestURI()).thenReturn(URI1);
+            when(request.getHeader(PowerApiHeader.GROUPS.toString())).thenReturn(GROUP2);
+            when(request.getMethod()).thenReturn(HttpMethod.GET.toString());
+
+            FilterDirector result = handler.handleRequest(request, response);
+
+            assertTrue("Should receive a pass filter action", result.getFilterAction().equals(FilterAction.PASS));
+
+        }
+
+    }
 }

@@ -14,15 +14,15 @@
       <filter name="header-token-identity" configuration="header-token-identity.cfg.xml" />
       <filter name="uri-access" configuration="uri-access.cfg.xml" />
       <filter name="rate-limiting" configuration="rate-limiting.cfg.xml" />
-      <filter name="destination-router" uri-regex="/api/lol/na/v2/game.*" configuration="na_game_v2.cfg.xml" />
-      <filter name="destination-router" uri-regex="/api/lol/na/v2/summoner.*" configuration="na_summoner_v2.cfg.xml" />
-      <filter name="destination-router" uri-regex="/api/lol/na/v2/stats.*" configuration="na_stats_v2.cfg.xml" />
-      <filter name="destination-router" uri-regex="/api/lol/euw/v2/game.*" configuration="euw_game_v2.cfg.xml" />
-      <filter name="destination-router" uri-regex="/api/lol/euw/v2/summoner.*" configuration="euw_summoner_v2.cfg.xml" />
-      <filter name="destination-router" uri-regex="/api/lol/euw/v2/stats.*" configuration="euw_stats_v2.cfg.xml" />
-      <filter name="destination-router" uri-regex="/api/lol/eune/v2/game.*" configuration="eune_game_v2.cfg.xml" />
-      <filter name="destination-router" uri-regex="/api/lol/eune/v2/summoner.*" configuration="eune_summoner_v2.cfg.xml" />
-      <filter name="destination-router" uri-regex="/api/lol/eune/v2/stats.*" configuration="eune_stats_v2.cfg.xml" />
+      <filter id="1368473608158" name="destination-router" uri-regex="/api/lol/na/v2/game.*" configuration="na_game_v2.cfg.xml" />
+      <filter id="1368472714329" name="destination-router" uri-regex="/api/lol/na/v2/summoner.*" configuration="na_summoner_v2.cfg.xml" />
+      <filter id="1368473543673" name="destination-router" uri-regex="/api/lol/na/v2/stats.*" configuration="na_stats_v2.cfg.xml" />
+      <filter id="1368575644737" name="destination-router" uri-regex="/api/lol/euw/v2/game.*" configuration="euw_game_v2.cfg.xml" />
+      <filter id="1368575354850" name="destination-router" uri-regex="/api/lol/euw/v2/summoner.*" configuration="euw_summoner_v2.cfg.xml" />
+      <filter id="1368576090180" name="destination-router" uri-regex="/api/lol/euw/v2/stats.*" configuration="euw_stats_v2.cfg.xml" />
+      <filter id="1368575758272" name="destination-router" uri-regex="/api/lol/eune/v2/game.*" configuration="eune_game_v2.cfg.xml" />
+      <filter id="1368575504689" name="destination-router" uri-regex="/api/lol/eune/v2/summoner.*" configuration="eune_summoner_v2.cfg.xml" />
+      <filter id="1368576224860" name="destination-router" uri-regex="/api/lol/eune/v2/stats.*" configuration="eune_stats_v2.cfg.xml" />
     </filters>
     
     <services>
