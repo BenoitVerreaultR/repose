@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import javax.xml.bind.JAXBElement;
 import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
 import java.net.URL;
@@ -155,5 +156,12 @@ public class PowerApiConfigurationManager implements ConfigurationService {
 
         return parser;
     }
-   
+
+    @Override
+    public <T> void save(String uri, JAXBElement<T> config) {
+        ConfigurationParser<T> parser = (ConfigurationParser<T>) getPooledJaxbConfigurationParser(config.getValue().getClass(), null);
+        parser.write(config, uri);
+        updateManager.updateResource(uri);
+    }
+
 }

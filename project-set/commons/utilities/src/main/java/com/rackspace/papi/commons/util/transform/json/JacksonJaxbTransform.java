@@ -40,4 +40,14 @@ public class JacksonJaxbTransform {
       
       return result;
    }
+
+    public String serialize(Object target) {
+        String result = null;
+        try {
+            result = mapper.writeValueAsString(target);
+        } catch (IOException ex) {
+            LOG.warn("Unable to serialized object", ex);
+        }
+        return result;
+    }
 }

@@ -4,6 +4,7 @@ import com.rackspace.papi.commons.config.parser.common.AbstractConfigurationObje
 import com.rackspace.papi.commons.config.resource.ConfigurationResource;
 import com.rackspace.papi.commons.config.resource.ResourceResolutionException;
 
+import javax.xml.bind.JAXBElement;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -23,4 +24,10 @@ public class PropertiesFileConfigurationParser extends AbstractConfigurationObje
       }
       return properties;
    }
+
+    @Override
+    public void write(Object config, String URI) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

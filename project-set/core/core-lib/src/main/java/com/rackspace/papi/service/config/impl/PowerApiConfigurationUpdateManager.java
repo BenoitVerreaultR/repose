@@ -34,14 +34,13 @@ public class PowerApiConfigurationUpdateManager implements ConfigurationUpdateMa
    public void initialize(ServletContext ctx) {
       final ThreadingService threadingService = ServletContextHelper.getInstance(ctx).getPowerApiContext().threadingService();
       
-      configurationInformation =(ConfigurationInformation)ServletContextHelper.getInstance(ctx).getPowerApiContext().reposeConfigurationInformation();
+      configurationInformation = ServletContextHelper.getInstance(ctx).getPowerApiContext().reposeConfigurationInformation();
       // Initialize the resource watcher
       resourceWatcher = new ConfigurationResourceWatcher(eventManager);
       
       final Poller pollerLogic = new Poller(resourceWatcher, 15000);
       
-      resrouceWatcherThread = new DestroyableThreadWrapper(
-              threadingService.newThread(pollerLogic, "Configuration Watcher Thread"), pollerLogic);
+      resrouceWatcherThread = new DestroyableThreadWrapper(threadingService.newThread(pollerLogic, "Configuration Watcher Thread"), pollerLogic);
       resrouceWatcherThread.start();
       
       // Listen for configuration events
@@ -85,4 +84,9 @@ public class PowerApiConfigurationUpdateManager implements ConfigurationUpdateMa
          }
       }
    }
+
+    @Override
+    public void updateResource(String resourceName) {
+        resourceWatcher.updateResource(resourceName);
+    }
 }

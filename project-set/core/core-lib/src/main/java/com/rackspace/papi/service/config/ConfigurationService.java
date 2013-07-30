@@ -6,6 +6,9 @@ import com.rackspace.papi.commons.config.parser.common.ConfigurationParser;
 import com.rackspace.papi.commons.config.resource.ConfigurationResourceResolver;
 import com.rackspace.papi.commons.util.Destroyable;
 import com.rackspace.papi.jmx.ConfigurationInformation;
+import com.rackspace.papi.model.SystemModel;
+
+import javax.xml.bind.JAXBElement;
 import java.net.URL;
 
 public interface ConfigurationService extends Destroyable {
@@ -24,4 +27,6 @@ public interface ConfigurationService extends Destroyable {
     <T> void subscribeTo(String filterName,String configurationName, UpdateListener<T> listener, ConfigurationParser<T> customParser);
     <T> void subscribeTo(String filterName,String configurationName, UpdateListener<T> listener, ConfigurationParser<T> customParser, boolean sendNotificationNow);
     void unsubscribeFrom(String configurationName, UpdateListener plistener);
+    <T> void save(String uri, JAXBElement<T> config);
+
 }

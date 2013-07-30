@@ -79,6 +79,11 @@ public class PowerApiConfigurationUpdateManagerTest {
                         }
 
                         @Override
+                        public void write(Object object, String URI) {
+                            throw new UnsupportedOperationException("Not supported yet.");
+                        }
+
+                        @Override
                         public Class<String> configurationClass() {
                             throw new UnsupportedOperationException("Not supported yet.");
                         }
@@ -99,6 +104,11 @@ public class PowerApiConfigurationUpdateManagerTest {
                     new ConfigurationParser<String>() {
                         @Override
                         public String read(ConfigurationResource cr) {
+                            throw new UnsupportedOperationException("Not supported yet.");
+                        }
+
+                        @Override
+                        public void write(Object object, String URI) {
                             throw new UnsupportedOperationException("Not supported yet.");
                         }
 

@@ -8,21 +8,23 @@ import java.net.URL;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 public class JaxbConfigurationParser <T> extends AbstractConfigurationObjectParser<T> {
 
-    private final Pool<Unmarshaller> marshallerPool;
+    private final Pool<Unmarshaller> unmarshallerPool;
+    private final Pool<Marshaller> marshallerPool;
 
     public JaxbConfigurationParser(Class<T> configurationClass, JAXBContext jaxbContext, URL xsdStreamSource) {
         super(configurationClass);
-        marshallerPool = new GenericBlockingResourcePool<Unmarshaller>(
-                new UnmarshallerConstructionStrategy(jaxbContext,xsdStreamSource));
+        unmarshallerPool = new GenericBlockingResourcePool<Unmarshaller>(new UnmarshallerConstructionStrategy(jaxbContext,xsdStreamSource));
+        marshallerPool = new GenericBlockingResourcePool<Marshaller>(new MarshallerConstructionStrategy(jaxbContext,xsdStreamSource));
     }
     
     @Override
     public T read(ConfigurationResource cr) {
-        final Object parsedObject = marshallerPool.use(new UnmarshallerResourceContext(cr));
+        final Object parsedObject = unmarshallerPool.use(new UnmarshallerResourceContext(cr));
         final Object returnable = parsedObject instanceof JAXBElement
                 ? ((JAXBElement)parsedObject).getValue()
                 : parsedObject;
@@ -35,4 +37,9 @@ public class JaxbConfigurationParser <T> extends AbstractConfigurationObjectPars
         
         return configurationClass().cast(returnable);
     }
+
+    public void write(Object config, String uri) {
+        marshallerPool.use(new MarshallerResourceContext(config, uri));
+    }
+
 }

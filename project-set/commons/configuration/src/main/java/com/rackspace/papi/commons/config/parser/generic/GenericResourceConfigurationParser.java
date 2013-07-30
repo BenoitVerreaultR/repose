@@ -13,5 +13,10 @@ public class GenericResourceConfigurationParser extends AbstractConfigurationObj
     public ConfigurationResource read(ConfigurationResource cr) {
         return cr;
     }
-    
+
+    @Override
+    public void write(Object object, String URI) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }
