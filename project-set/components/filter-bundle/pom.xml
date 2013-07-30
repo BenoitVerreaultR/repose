@@ -142,6 +142,11 @@
             <artifactId>uri-access</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.rackspace.papi.components</groupId>
+            <artifactId>external-configuration</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -262,6 +267,11 @@
                         <jarModule>
                             <groupId>com.rackspace.papi.components</groupId>
                             <artifactId>uri-access</artifactId>
+                        </jarModule>
+
+                        <jarModule>
+                            <groupId>com.rackspace.papi.components</groupId>
+                            <artifactId>external-configuration</artifactId>
                         </jarModule>
 
                     </modules>

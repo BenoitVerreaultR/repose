@@ -15,6 +15,7 @@
 
     <modules>
         <module>rate-limiting-service</module>
+        <module>external-configuration-service</module>
     </modules>
 
 </project>

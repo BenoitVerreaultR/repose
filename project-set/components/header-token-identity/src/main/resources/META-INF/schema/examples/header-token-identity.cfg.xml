@@ -6,7 +6,6 @@
 
 
     <token-header>X-TOKEN</token-header>
-    <quality>1.0</quality>
 
     <headers>
         <header id="RiotGames" group="RiotGames" token="EEBD189B3EE993FF" />

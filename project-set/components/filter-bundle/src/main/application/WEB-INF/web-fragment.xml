@@ -125,4 +125,9 @@
         <filter-name>uri-access</filter-name>
         <filter-class>com.rackspace.papi.components.access.uri.UriAccessFilter</filter-class>
     </filter>
+
+    <filter>
+        <filter-name>external-configuration</filter-name>
+        <filter-class>com.rackspace.papi.components.configuration.external.ExternalConfigurationFilter</filter-class>
+    </filter>
 </web-fragment>
