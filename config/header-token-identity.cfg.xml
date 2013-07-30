@@ -1,13 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<header-token-identity xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-   xmlns='http://docs.api.rackspacecloud.com/repose/header-token-identity/v1.0'
-   xsi:schemaLocation='http://docs.api.rackspacecloud.com/repose/header-token-identity/v1.0 ../config/header-token-identity-configuration.xsd'>
-
-   <headers>
-      <header id="RiotGames" group="RiotGames" token="AABBCCDDEEFFGGHHII" />
-   </headers>
-   
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<header-token-identity xmlns="http://docs.api.rackspacecloud.com/repose/header-token-identity/v1.0">
    <token-header>X-TOKEN</token-header>
-   
+   <headers>
+      <header token="AABBCCDDEEFFGGHHII" group="RiotGames" id="RiotGames"/>
+   </headers>
 </header-token-identity>

@@ -1,19 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<uri-access xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-   xmlns='http://docs.api.rackspacecloud.com/repose/uri-access/v1.0'
-   xsi:schemaLocation='http://docs.api.rackspacecloud.com/repose/uri-access/v1.0 ../config/uri-access-configuration.xsd'>
-
-  <access-group id="RiotGames" group="RiotGames" default="false">
-    <access uri="/api/lol/na/v2/game" uri-regex="/api/lol/na/v2/game.*" http-methods="ALL" />
-    <access uri="/api/lol/na/v2/summoner" uri-regex="/api/lol/na/v2/summoner.*" http-methods="ALL" />
-    <access uri="/api/lol/na/v2/stats" uri-regex="/api/lol/na/v2/stats.*" http-methods="ALL" />
-    <access uri="/api/lol/euw/v2/game" uri-regex="/api/lol/euw/v2/game.*" http-methods="ALL" />
-    <access uri="/api/lol/euw/v2/summoner" uri-regex="/api/lol/euw/v2/summoner.*" http-methods="ALL" />
-    <access uri="/api/lol/euw/v2/stats" uri-regex="/api/lol/euw/v2/stats.*" http-methods="ALL" />
-    <access uri="/api/lol/eune/v2/game" uri-regex="/api/lol/eune/v2/game.*" http-methods="ALL" />
-    <access uri="/api/lol/eune/v2/summoner" uri-regex="/api/lol/eune/v2/summoner.*" http-methods="ALL" />
-    <access uri="/api/lol/eune/v2/stats" uri-regex="/api/lol/eune/v2/stats.*" http-methods="ALL" />
-  </access-group>
-  
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<uri-access xmlns="http://docs.api.rackspacecloud.com/repose/uri-access/v1.0">
+    <access-group default="false" group="RiotGames" id="RiotGames">
+        <access http-methods="ALL" uri-regex="/api/lol/na/v2/game.*" uri="/api/lol/na/v2/game" id="1368473608158"/>
+        <access http-methods="ALL" uri-regex="/api/lol/na/v2/summoner.*" uri="/api/lol/na/v2/summoner" id="1368472714329"/>
+        <access http-methods="ALL" uri-regex="/api/lol/na/v2/stats.*" uri="/api/lol/na/v2/stats" id="1368473543673"/>
+        <access http-methods="ALL" uri-regex="/api/lol/euw/v2/game.*" uri="/api/lol/euw/v2/game" id="1368575644737"/>
+        <access http-methods="ALL" uri-regex="/api/lol/euw/v2/summoner.*" uri="/api/lol/euw/v2/summoner" id="1368575354850"/>
+        <access http-methods="ALL" uri-regex="/api/lol/euw/v2/stats.*" uri="/api/lol/euw/v2/stats" id="1368576090180"/>
+        <access http-methods="ALL" uri-regex="/api/lol/eune/v2/game.*" uri="/api/lol/eune/v2/game" id="1368575758272"/>
+        <access http-methods="ALL" uri-regex="/api/lol/eune/v2/summoner.*" uri="/api/lol/eune/v2/summoner" id="1368575504689"/>
+        <access http-methods="ALL" uri-regex="/api/lol/eune/v2/stats.*" uri="/api/lol/eune/v2/stats" id="1368576224860"/>
+    </access-group>
 </uri-access>

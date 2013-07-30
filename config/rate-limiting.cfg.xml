@@ -1,15 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<rate-limiting datastore="distributed/hash-ring" use-capture-groups="true" overLimit-429-responseCode="true" xmlns="http://docs.rackspacecloud.com/repose/rate-limiting/v1.0">
-  
-  <request-endpoint uri-regex="/api/limits/" />
-  
-  <limit-group id="RiotGames" groups="RiotGames" default="false">
-    <limit uri="*" uri-regex=".*" http-methods="ALL" unit="SECOND" value="1000"/>
-  </limit-group>
-  
-  <limit-group id="User_Standard" groups="User_Standard" default="true">
-    <limit uri="*" uri-regex=".*" http-methods="ALL" unit="SECOND" value="0"/>
-  </limit-group>
-  
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rate-limiting xmlns="http://docs.rackspacecloud.com/repose/rate-limiting/v1.0" use-capture-groups="true" datastore="distributed/hash-ring" overLimit-429-responseCode="true">
+    <request-endpoint uri-regex="/api/limits/"/>
+    <limit-group groups="User_Standard" default="true" id="User_Standard">
+        <limit unit="SECOND" value="0" http-methods="ALL" uri-regex=".*" uri="*"/>
+    </limit-group>
+    <limit-group groups="RiotGames" default="false" id="RiotGames">
+        <limit unit="SECOND" value="1000" http-methods="ALL" uri-regex=".*" uri="*"/>
+    </limit-group>
 </rate-limiting>

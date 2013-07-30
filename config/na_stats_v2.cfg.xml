@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
- 
-<destination-router xmlns='http://openrepose.org/repose/destination-router/v1.0'>
-   <target id="stats-v2-na" uri="/api/lol/na/v2/stats" uri-regex="(/api/lol/na/v2/stats)(.*)" quality="1.0" />
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<destination-router xmlns="http://openrepose.org/repose/destination-router/v1.0">
+    <target id="stats-v2-na" uri="/api/lol/na/v2/stats" quality="1.0" uri-regex="(/api/lol/na/v2/stats)(.*)"/>
 </destination-router>
