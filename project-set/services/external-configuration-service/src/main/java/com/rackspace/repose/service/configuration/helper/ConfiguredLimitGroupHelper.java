@@ -8,8 +8,8 @@ import com.rackspace.repose.service.ratelimit.config.ConfiguredRatelimit;
 
 public class ConfiguredLimitGroupHelper {
 
-    private static String URI = "*";
-    private static String URI_REGEX = ".*";
+    private static String URI = "/*";
+    private static String URI_REGEX = "(/).*";
 
     public static ConfiguredLimitGroup newConfiguredLimitGroup() {
         ConfiguredLimitGroup limitGroup = new ConfiguredLimitGroup();
