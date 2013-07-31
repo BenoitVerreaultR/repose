@@ -3,6 +3,8 @@
     <repose-cluster rewrite-host-header="true" id="repose">
         <nodes>
             <node http-port="8080" hostname="127.0.0.1" id="local"/>
+            <!--node id="riot_api_repose_01" hostname="10.96.1.46" http-port="80" /-->
+            <!--node id="riot_api_repose_02" hostname="10.96.1.26" http-port="80" /-->
         </nodes>
         <filters>
             <filter configuration="http-logging.cfg.xml" name="http-logging"/>
