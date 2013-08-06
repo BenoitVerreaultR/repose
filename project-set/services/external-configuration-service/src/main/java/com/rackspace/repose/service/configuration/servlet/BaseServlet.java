@@ -1,13 +1,16 @@
 package com.rackspace.repose.service.configuration.servlet;
 
 import com.rackspace.papi.commons.util.transform.json.JacksonJaxbTransform;
+import com.rackspace.repose.service.configuration.resource.Ids;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.ParameterizedType;
-import java.util.Collection;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,8 +32,8 @@ public abstract class BaseServlet<T> extends HttpServlet {
 
             // if no id is found, return list of resources.
             if (id == null || id.equals("")) {
-                Collection<T> resources = getResources();
-                createResponse(response, resources);
+                Ids ids = getIds();
+                createResponse(response, ids);
                 return;
             }
 
@@ -56,8 +59,13 @@ public abstract class BaseServlet<T> extends HttpServlet {
             T oldResource = getResource(id);
 
             // get the new resource data
-            String data = request.getParameter("data");
-            T newResource = extractData(data);
+            String data = consume(request);
+            if (data == null) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+                return;
+            }
+
+            T newResource = extractResource(data);
 
             if (newResource == null) {
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -132,7 +140,19 @@ public abstract class BaseServlet<T> extends HttpServlet {
         return getParameterClass().getSimpleName().toLowerCase();
     }
 
-    private T extractData(String data) {
+    private String consume(HttpServletRequest request) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        InputStream inputStream = request.getInputStream();
+        InputStreamReader streamReader = new InputStreamReader(inputStream);
+        BufferedReader bufferedReader = new BufferedReader(streamReader);
+        String line = null;
+        while ((line = bufferedReader.readLine()) != null) {
+            sb.append(line);
+        }
+        return sb.toString();
+    }
+
+    private T extractResource(String data) {
         return (T) transform.deserialize(data, getParameterClass());
     }
 
@@ -149,9 +169,9 @@ public abstract class BaseServlet<T> extends HttpServlet {
         return resources.get(id);
     }
 
-    private Collection<T> getResources() {
+    private Ids getIds() {
         Map<String, T> resources = (Map<String, T>) this.getServletContext().getAttribute(getParameterClassName());
-        return resources.values();
+        return new Ids(resources.keySet());
     }
 
     protected abstract void updateResource(T oldResource, T newResource);
