@@ -6,19 +6,14 @@ public class Auth {
 
     @JsonProperty
     private String id;
-
     @JsonProperty
     private AuthType authType;
-
     @JsonProperty
     private String authKey;
-
     @JsonProperty
     private String username;
-
     @JsonProperty
     private String password;
-
     @JsonProperty
     private String ipAddresses;
 

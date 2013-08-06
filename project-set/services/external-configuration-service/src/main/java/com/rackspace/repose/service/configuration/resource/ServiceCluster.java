@@ -1,11 +1,16 @@
 package com.rackspace.repose.service.configuration.resource;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import java.util.List;
 
 public class ServiceCluster {
 
+    @JsonProperty
     private String id;
+    @JsonProperty
     private List<Node> nodes;
+    @JsonProperty
     private Protocol protocol;
 
     public String getId() {

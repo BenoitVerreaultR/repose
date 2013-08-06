@@ -2,25 +2,18 @@ package com.rackspace.repose.service.configuration.resource;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-import java.util.List;
-
 public class Api {
 
     @JsonProperty
     private String id;
-
     @JsonProperty
     private String name;
-
     @JsonProperty
     private String captureUri;
-
     @JsonProperty
     private String routingUri;
-
     @JsonProperty
     private String serviceClusterId;
-
     @JsonProperty
     private boolean enabled;
 

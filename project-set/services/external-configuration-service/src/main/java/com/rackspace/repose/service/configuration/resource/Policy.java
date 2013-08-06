@@ -8,16 +8,12 @@ public class Policy {
 
     @JsonProperty
     private String id;
-
     @JsonProperty
     private List<String> apiIds;
-
     @JsonProperty
     private String authId;
-
     @JsonProperty
     private RateLimitType rateLimitType;
-
     @JsonProperty
     private int rateLimitValue;
 

@@ -1,11 +1,18 @@
 package com.rackspace.repose.service.configuration.resource;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class Node {
 
+    @JsonProperty
     private String id;
+    @JsonProperty
     private String hostname;
+    @JsonProperty
     private int httpPort;
+    @JsonProperty
     private int httpsPort;
+    @JsonProperty
     private HealthCheck healthCheck;
 
     public String getId() {

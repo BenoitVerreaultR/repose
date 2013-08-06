@@ -1,9 +1,14 @@
 package com.rackspace.repose.service.configuration.resource;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class HealthCheck {
 
+    @JsonProperty
     private Protocol protocol;
+    @JsonProperty
     private int port;
+    @JsonProperty
     private String uri;
 
     public Protocol getProtocol() {
