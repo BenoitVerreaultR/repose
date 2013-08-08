@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <header-token-identity xmlns="http://docs.api.rackspacecloud.com/repose/header-token-identity/v1.0">
-   <token-header>X-TOKEN</token-header>
-   <headers>
-      <header token="AABBCCDDEEFFGGHHII" group="RiotGames" id="RiotGames"/>
-   </headers>
+    <token-header>X-TOKEN</token-header>
+    <headers>
+        <header token="AABBCCDDEEFFGGHHII" group="RiotGames" id="1375973674294"/>
+    </headers>
 </header-token-identity>
