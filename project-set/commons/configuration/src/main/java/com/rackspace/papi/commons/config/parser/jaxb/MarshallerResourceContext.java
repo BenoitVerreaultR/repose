@@ -27,7 +27,7 @@ public class MarshallerResourceContext implements SimpleResourceContext<Marshall
 
     public MarshallerResourceContext(Object config, String uri) {
         this.config = config;
-        this.uri = uri.replace("file:", "");
+        this.uri = uri;
     }
 
     //Suppressing the warning as the new exception is using the jaxbe error code and message to pass on to the ResourceContextExcepiton

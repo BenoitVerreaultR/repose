@@ -108,7 +108,7 @@ public abstract class ConfigurationUpdater<T> implements UpdateListener<T>, Serv
         if (configUri != null)
             return configUri;
 
-        configUri = configurationManager.getResourceResolver().resolve(getConfigName()).name();
+        configUri = configurationManager.getResourceResolver().resolve(getConfigName()).name().replace("file:", "");
         return configUri;
     }
 

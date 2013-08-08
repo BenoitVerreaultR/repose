@@ -161,7 +161,7 @@ public class PowerApiConfigurationManager implements ConfigurationService {
     public <T> void save(String uri, JAXBElement<T> config) {
         ConfigurationParser<T> parser = (ConfigurationParser<T>) getPooledJaxbConfigurationParser(config.getValue().getClass(), null);
         parser.write(config, uri);
-        updateManager.updateResource(uri);
+        updateManager.updateResource(String.format("file:%s", uri));
     }
 
 }
