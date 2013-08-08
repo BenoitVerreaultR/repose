@@ -18,7 +18,7 @@ public class HeaderHelper {
 
     public static void update(HeaderMapping headerMapping, Auth auth) {
         headerMapping.setId(auth.getId());
-        headerMapping.setGroup(auth.getId());
+        headerMapping.setGroup(auth.getName());
         headerMapping.setToken(auth.getAuthKey());
     }
 

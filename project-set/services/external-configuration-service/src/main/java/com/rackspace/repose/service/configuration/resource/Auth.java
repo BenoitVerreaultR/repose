@@ -7,6 +7,8 @@ public class Auth {
     @JsonProperty
     private String id;
     @JsonProperty
+    private String name;
+    @JsonProperty
     private AuthType authType;
     @JsonProperty
     private String authKey;
@@ -23,6 +25,14 @@ public class Auth {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public AuthType getAuthType() {
@@ -64,4 +74,5 @@ public class Auth {
     public void setIpAddresses(String ipAddresses) {
         this.ipAddresses = ipAddresses;
     }
+
 }
