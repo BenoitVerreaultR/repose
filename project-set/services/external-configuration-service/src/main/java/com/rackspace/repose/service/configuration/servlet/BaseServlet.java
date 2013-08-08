@@ -81,7 +81,7 @@ public abstract class BaseServlet<T> extends HttpServlet {
 
             // we create
             createResource(newResource);
-            response.setStatus(HttpServletResponse.SC_CREATED);
+            response.setStatus(HttpServletResponse.SC_OK);
         } catch (IOException e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
