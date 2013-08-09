@@ -33,10 +33,17 @@ public class ClusterHelper {
             node.setHostname(serviceClusterNode.getHostname());
             node.setHttpPort(serviceClusterNode.getHttpPort());
             node.setHttpsPort(serviceClusterNode.getHttpsPort());
+
+            // don't go further without healthcheck
+            if (serviceClusterNode.getHealthCheck() == null) {
+                continue;
+            }
+
             node.setHealthcheck(new HealthCheck());
             node.getHealthcheck().setProtocol(serviceClusterNode.getHealthCheck().getProtocol().name());
             node.getHealthcheck().setUri(serviceClusterNode.getHealthCheck().getUri());
             node.getHealthcheck().setPort(serviceClusterNode.getHealthCheck().getPort());
+
         }
     }
 

@@ -24,17 +24,17 @@
             <service name="dist-datastore"/>
         </services>
         <destinations>
-            <target cluster="stats-v2-na" protocol="http" id="stats-v2-na"/>
+            <target cluster="stats-v2-na" default="false" protocol="http" id="stats-v2-na"/>
             <target cluster="stats-v2-euw" protocol="http" id="stats-v2-euw"/>
             <target cluster="stats-v2-eune" protocol="http" id="stats-v2-eune"/>
         </destinations>
     </repose-cluster>
     <service-cluster id="stats-v2-na">
         <nodes>
-            <node http-port="8080" hostname="ws03.stats2.api.pvp.net" id="stats-v2-na-ws03">
+            <node https-port="0" http-port="8080" hostname="ws03.stats2.api.pvp.net" id="node0">
                 <healthcheck uri="/healthcheck" port="8081" protocol="http"/>
             </node>
-            <node http-port="8080" hostname="ws04.stats2.api.pvp.net" id="stats-v2-na-ws04">
+            <node https-port="0" http-port="8080" hostname="ws04.stats2.api.pvp.net" id="node1">
                 <healthcheck uri="/healthcheck" port="8081" protocol="http"/>
             </node>
         </nodes>

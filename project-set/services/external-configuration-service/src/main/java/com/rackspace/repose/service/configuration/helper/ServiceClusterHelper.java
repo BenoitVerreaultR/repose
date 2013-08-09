@@ -36,6 +36,12 @@ public class ServiceClusterHelper {
             node.setHostname(clusterNode.getHostname());
             node.setHttpPort(clusterNode.getHttpPort());
             node.setHttpsPort(clusterNode.getHttpsPort());
+
+            // if no healthcheck, dont
+            if (clusterNode.getHealthcheck() == null) {
+                continue;
+            }
+
             node.setHealthCheck(new HealthCheck());
             node.getHealthCheck().setProtocol(Protocol.valueOf(clusterNode.getHealthcheck().getProtocol()));
             node.getHealthCheck().setPort(clusterNode.getHealthcheck().getPort());
