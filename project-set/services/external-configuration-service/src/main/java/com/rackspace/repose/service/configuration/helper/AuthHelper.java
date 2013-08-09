@@ -22,7 +22,6 @@ public class AuthHelper {
 
     public static void update(Auth auth, HeaderMapping headerMapping) {
         auth.setId(headerMapping.getId());
-        auth.setName(headerMapping.getGroup());
         auth.setAuthKey(headerMapping.getToken());
         auth.setAuthType(AuthType.AUTH_KEY);
     }
