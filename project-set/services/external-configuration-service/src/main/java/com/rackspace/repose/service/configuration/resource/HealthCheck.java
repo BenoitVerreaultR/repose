@@ -1,7 +1,9 @@
 package com.rackspace.repose.service.configuration.resource;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class HealthCheck {
 
     @JsonProperty

@@ -1,5 +1,6 @@
 package com.rackspace.repose.service.configuration.resource;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.Set;
  * Time: 15:50
  * To change this template use File | Settings | File Templates.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Ids {
 
     @JsonProperty
